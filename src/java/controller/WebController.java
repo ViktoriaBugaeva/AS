@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entity.Person;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -60,11 +61,16 @@ public class WebController extends HttpServlet {
                         .forward(request, response);
                 break;
             case "/newPerson":
-                String fristname = request.getParameter("fristname");
+                String firstname = request.getParameter("firstname");
                 String lastname = request.getParameter("lastname");
                 String status = request.getParameter("status");
                 String email = request.getParameter("email");
-                Person person = new Person(fristname, lastname, status, email);
+                Person person = new Person(firstname, lastname, status, email);
+                request.setAttribute("info", "Пользователь " 
+                            +person.getFirstname()+" "+person.getLastname()
+                            +" зарегистрирован.");
+                request.getRequestDispatcher("/index.jsp")
+                        .forward(request, response);
                 break;
         }
     }
